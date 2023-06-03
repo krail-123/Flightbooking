@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flight Booking - Admin Page</title>
+    <link rel="stylesheet" href="style1.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Admin Page</h2>
+      <hr />
+      <br />
+      <div class="form">
+        Flight Number: <input type="text" name="flightNo" id="flightNo" /> <br /><br />
+        Flight Name:&nbsp; <input type="text" name="flightName" id="flightName" /> <br /><br />
+        From: 
+        <select name="from" id="from">
+          <option value="DEL">Indira Gandhi International Airport, New Delhi</option>
+          <option value="BOM">Chhatrapati Shivaji International Airport, Mumbai</option>
+          <option value="MAA">Chennai International Airport, Chennai</option>
+          <option value="BLR">Kempegowda International Airport, Bangalore</option>
+          <option value="COK">Cochin International Airport, Kochi</option>
+          <option value="HYD">Rajiv Gandhi International Airport, Hyderabad</option>
+          <option value="TRV">Trivandrum International Airport, Thiruvananthapuram</option>
+          <option value="CCU">Netaji Subhash Chandra Bose International Airport, Kolkata</option>
+          <option value="CCJ">Calicut International Airport, Calicut</option>
+          <option value="AMD">Sardar Vallabhbhai Patel International Airport, Ahmedabad</option>
+          <option value="JAI">Jaipur International Airport, Jaipur</option>
+          <option value="CJB">Coimbatore International Airport, Coimbatore</option>
+        </select> <br /><br />
+        To: 
+        <select name="to" id="to">
+          <option value="DEL">Indira Gandhi International Airport, New Delhi</option>
+          <option value="BOM">Chhatrapati Shivaji International Airport, Mumbai</option>
+          <option value="MAA">Chennai International Airport, Chennai</option>
+          <option value="BLR">Kempegowda International Airport, Bangalore</option>
+          <option value="COK">Cochin International Airport, Kochi</option>
+          <option value="HYD">Rajiv Gandhi International Airport, Hyderabad</option>
+          <option value="TRV">Trivandrum International Airport, Thiruvananthapuram</option>
+          <option value="CCU">Netaji Subhash Chandra Bose International Airport, Kolkata</option>
+          <option value="CCJ">Calicut International Airport, Calicut</option>
+          <option value="AMD">Sardar Vallabhbhai Patel International Airport, Ahmedabad</option>
+          <option value="JAI">Jaipur International Airport, Jaipur</option>
+          <option value="CJB">Coimbatore International Airport, Coimbatore</option>
+        </select> <br /><br />
+        Departure Date: <input type="date" name="departureDate" id="departureDate" /> <br /><br />
+        Reaching Date: <input type="date" name="reachingDate" id="reachingDate" /> <br /><br />
+        Hours of Travel: <input type="number" name="hours" id="hours" /> <br /><br />
+        Price: <input type="text" name="price" id="price" /> <br /><br />
+        No of Seats Available: <input type="text" name="seats" id="seats" /> <br /><br />
+      </div>
+
+      <div class="buttons">
+        <button id="insert">Add</button>
+        <button id="read">Read</button>
+        <button id="update">Update</button>
+        <button id="delete">Delete</button>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase.js"></script>
+
+    <script src="./firebaseConfig.js"></script>
+
+    <script src="./myscript.js"></script>
+  </body>
+</html>

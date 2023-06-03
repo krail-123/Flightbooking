@@ -1,0 +1,41 @@
+body {
+    background-color: #f0f3f7;
+    font-size: 16px;
+  }
+  
+  .container {
+    padding: 20px;
+  }
+  
+  h2 {
+    background-color: #006db3;
+    color: #fff;
+    padding: 10px;
+    font-size: 24px;
+  }
+  
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .data-table th {
+    background-color: #c2e8ff;
+    font-weight: bold;
+  }
+  
+  .data-table td {
+    background-color: #e1f2f9;
+  }
+  
+  .data-table tr:nth-child(even) {
+    background-color: #fff;
+  }
+  

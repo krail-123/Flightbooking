@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>How to create Firebase login and register?</title>
+</head>
+
+<body>
+
+    <div class="navbar navbar-default">
+        <div class="navbar-header">
+            <h1 style="font-family:Time 'Times New Roman', Times, serif"><i>Flyingobooking</i></h1>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse"
+                aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" id="logout" style="display: none;">Log Out</a></li>
+            </ul>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Login</h2>
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="text" name="loginEmail" id="loginEmail" class="form-control" placeholder="Enter your email">
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" name="loginPassword" id="loginPassword" class="form-control"
+                        placeholder="Enter your password">
+                </div>
+
+                <div class="form-group">
+                    <label for="loginUsertype">User Type</label>
+                    <select name="loginUsertype" id="loginUsertype" class="form-control">
+                        <option value="Admin">Admin</option>
+                        <option value="User">User</option>
+                    </select>
+                </div>
+
+                <button id="login" class="btn btn-primary">Login</button>
+            </div>
+
+            <div class="col-sm-6">
+                <h2>Sign Up</h2>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="text" name="registerEmail" id="registerEmail" class="form-control" placeholder="Enter your email">
+                </div>
+
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" name="registerPassword" id="registerPassword" class="form-control"
+                        placeholder="Enter your password">
+                </div>
+
+                <div class="form-group">
+                    <label for="registerUsertype">User Type</label>
+                    <select name="registerUsertype" id="registerUsertype" class="form-control">
+                        <option value="Admin">Admin</option>
+                        <option value="User">User</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerUsername">User Name</label>
+                    <input type="text" name="registerUsername" id="registerUsername" class="form-control"
+                        placeholder="Enter your username">
+                </div>
+
+                <div class="form-group">
+                    <label for="registerCountry">Country</label>
+                    <select name="registerCountry" id="registerCountry" class="form-control">
+                        <option value="India">India</option>
+                        <option value="USA">USA</option>
+                        <option value="UK">UK</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerPhone">Phone</label>
+                    <input type="text" name="registerPhone" id="registerPhone" class="form-control"
+                        placeholder="Enter your phone number">
+                </div>
+
+                <div class="form-group">
+                    <label for="registerState">State</label>
+                    <input type="text" name="registerState" id="registerState" class="form-control"
+                        placeholder="Enter your state">
+                </div>
+
+                <div class="form-group">
+                    <label for="registerAddress">Address</label>
+                    <textarea name="registerAddress" id="registerAddress" class="form-control"
+                        placeholder="Enter your address"></textarea>
+                </div>
+
+                <button id="register" class="btn btn-primary">Register</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+        apiKey: "AIzaSyB939dIGQNnWe9NWcXCHlzUAr27jP9eEeA",
+        authDomain: "flightsbookings-16831.firebaseapp.com",
+        databaseURL: "https://flightsbookings-16831-default-rtdb.firebaseio.com",
+        projectId: "flightsbookings-16831",
+        storageBucket: "flightsbookings-16831.appspot.com",
+        messagingSenderId: "653342529816",
+        appId: "1:653342529816:web:3a1d31c8ccaa25f79de66d",
+        measurementId: "G-QDZYY1GG65"
+    };
+            // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const firestore = firebase.firestore();
+
+        // Login
+        document.getElementById("login").addEventListener("click", function () {
+            var email = document.getElementById("loginEmail").value;
+            var password = document.getElementById("loginPassword").value;
+            var usertype = document.getElementById("loginUsertype").value;
+
+            if (usertype === "Admin") {
+                auth.signInWithEmailAndPassword(email, password)
+                    .then((userCredential) => {
+                        // Admin logged in
+                        var user = userCredential.user;
+                        console.log(user);
+                        alert("Admin login successful!");
+                        window.location.href = "admin.html"; // Redirect to admin index page
+                    })
+                    .catch((error) => {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.log(errorCode, errorMessage);
+                        alert(errorMessage);
+                    });
+            } else {
+                // Perform user login
+                auth.signInWithEmailAndPassword(email, password)
+                    .then((userCredential) => {
+                        // User logged in
+                        var user = userCredential.user;
+                        console.log(user);
+                        alert("User login successful!");
+                        window.location.href = "userindex.html"; // Redirect to user index page
+                    })
+                    .catch((error) => {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.log(errorCode, errorMessage);
+                        alert(errorMessage);
+                    });
+            }
+        });
+
+        // Register
+        document.getElementById("register").addEventListener("click", function () {
+            var email = document.getElementById("registerEmail").value;
+            var password = document.getElementById("registerPassword").value;
+            var usertype = document.getElementById("registerUsertype").value;
+            var username = document.getElementById("registerUsername").value;
+            var country = document.getElementById("registerCountry").value;
+            var phone = document.getElementById("registerPhone").value;
+            var state = document.getElementById("registerState").value;
+            var address = document.getElementById("registerAddress").value;
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    var user = userCredential.user;
+                    console.log(user);
+                    alert("Registration successful!");
+                    if (usertype === "Admin") {
+                        firestore.collection("admin").doc(user.uid).set({
+                            email: email,
+                            username: username,
+                            country: country,
+                            phone: phone,
+                            state: state,
+                            address: address
+                        });
+                    } else {
+                        firestore.collection("users").doc(user.uid).set({
+                            email: email,
+                            username: username,
+                            country: country,
+                            phone: phone,
+                            state: state,
+                            address: address
+                        });
+                    }
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log(errorCode, errorMessage);
+                    alert(errorMessage);
+                });
+        });
+
+        // Logout
+        document.getElementById("logout").addEventListener("click", function () {
+            auth.signOut()
+                .then(() => {
+                    alert("Logged out successfully!");
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log(errorCode, errorMessage);
+                    alert(errorMessage);
+                });
+        });
+
+        // Authentication state change listener
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is logged in
+                document.getElementById("logout").style.display = "block";
+            } else {
+                // User is logged out
+                document.getElementById("logout").style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+
+</html>

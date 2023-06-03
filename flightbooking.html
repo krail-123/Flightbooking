@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD with Firebase</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>CRUD with Firebase</h2>
+    <hr />
+    <br />
+    <div class="form">
+      RollNo: <input type="text" name="RollNo" id="roll" /> <br /><br />
+      Name: <input type="text" name="name" id="name" /> <br /><br />
+      Gender: <input type="text" name="gender" id="gender" /> <br /><br />
+      Address: <input type="text" name="Address" id="address" /> <br /><br />
+    </div>
+
+    <div class="buttons">
+      <button id="insert">Insert</button>
+      <button id="read">Read</button>
+      <button id="update">Update</button>
+      <button id="delete">Delete</button>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
+
+  <script>
+    const firebaseConfig = {
+    apiKey: "AIzaSyB939dIGQNnWe9NWcXCHlzUAr27jP9eEeA",
+    authDomain: "flightsbookings-16831.firebaseapp.com",
+    databaseURL: "https://flightsbookings-16831-default-rtdb.firebaseio.com",
+    projectId: "flightsbookings-16831",
+    storageBucket: "flightsbookings-16831.appspot.com",
+    messagingSenderId: "653342529816",
+    appId: "1:653342529816:web:3a1d31c8ccaa25f79de66d",
+    measurementId: "G-QDZYY1GG65"
+  };
+
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    let rollV, nameV, genderV, addressV;
+
+    function readForm() {
+      rollV = document.getElementById("roll").value;
+      nameV = document.getElementById("name").value;
+      genderV = document.getElementById("gender").value;
+      addressV = document.getElementById("address").value;
+      console.log(rollV, nameV, addressV, genderV);
+    }
+
+    document.getElementById("insert").onclick = function () {
+      readForm();
+
+      database.ref("student/" + rollV).set({
+        rollNo: rollV,
+        name: nameV,
+        gender: genderV,
+        address: addressV,
+      });
+
+      alert("Data Inserted");
+      document.getElementById("roll").value = "";
+      document.getElementById("name").value = "";
+      document.getElementById("gender").value = "";
+      document.getElementById("address").value = "";
+    };
+
+    document.getElementById("read").onclick = function () {
+      readForm();
+
+      database.ref("student/" + rollV).on("value", function (snapshot) {
+        const data = snapshot.val();
+        if (data) {
+          document.getElementById("roll").value = data.rollNo;
+          document.getElementById("name").value = data.name;
+          document.getElementById("gender").value = data.gender;
+          document.getElementById("address").value = data.address;
+        } else {
+          alert("No data found for the given roll number.");
+        }
+      });
+    };
+
+    document.getElementById("update").onclick = function () {
+      readForm();
+
+      database.ref("student/" + rollV).update({
+        name: nameV,
+        gender: genderV,
+        address: addressV,
+      });
+
+      alert("Data Updated");
+      document.getElementById("roll").value = "";
+      document.getElementById("name").value = "";
+      document.getElementById("gender").value = "";
+      document.getElementById("address").value = "";
+    };
+
+    document.getElementById("delete").onclick = function () {
+      readForm();
+
+      database.ref("student/" + rollV).remove();
+
+      alert("Data Deleted");
+      document.getElementById("roll").value = "";
+      document.getElementById("name").value = "";
+      document.getElementById("gender").value = "";
+      document.getElementById("address").value = "";
+    };
+  </script>
+</body>
+</html>

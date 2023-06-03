@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Booking Page</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <style>
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #f2f2f2;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 9999;
+    }
+
+    .popup-content {
+      text-align: center;
+    }
+
+    .popup h2 {
+      margin-top: 0;
+    }
+
+    .popup-buttons {
+      margin-top: 20px;
+    }
+
+    .popup-buttons button {
+      font-size: 16px;
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="popup">
+    <div class="popup-content">
+      <h2>Login or Sign Up</h2>
+      <div class="popup-buttons">
+        <button onclick="openLogin('user')">Login as User</button>
+        <button onclick="openLogin('admin')">Login as Admin</button>
+        <button onclick="openSignup('user')">Sign Up as User</button>
+        <button onclick="openSignup('admin')">Sign Up as Admin</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="script.js"></script>
+  <script>
+    function openLogin(type) {
+      // Redirect to the login page based on the type (user/admin)
+      window.location.href = `login.html?type=${type}`;
+    }
+
+    function openSignup(type) {
+      // Redirect to the signup page based on the type (user/admin)
+      window.location.href = `signup.html?type=${type}`;
+    }
+  </script>
+</body>
+</html>
